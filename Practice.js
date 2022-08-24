@@ -38,3 +38,27 @@ function findOdd(A) {
     doTest([1,1,1,1,1,1,10,1,1,1,1], 10);
     doTest([5,4,3,2,1,5,4,3,2,10,10], 1);
   });
+
+  /*
+  Write a function that takes an integer as input, and returns the number of bits that are equal to one in the binary representation of that number. You can guarantee that input is non-negative.
+    Example: The binary representation of 1234 is 10011010010, so the function should return 5 in this case
+  */
+
+ const countBits = (n) => {
+    const negative = n < 0;
+    const twosComplement = negative ? Number.MAX_SAFE_INTEGER + n + 1 : n;
+    const signExtend = negative ? '1' : '0';
+  return twosComplement.toString(2).padStart(53, '0').padStart(64, signExtend).split("").filter(int => int === "1").length;
+  };
+
+const { assert } = require("chai")
+
+describe("Basic tests", () => {
+  it("Testing for fixed tests", () => {
+    assert.strictEqual(countBits(0), 0);
+    assert.strictEqual(countBits(4), 1);
+    assert.strictEqual(countBits(7), 3);
+    assert.strictEqual(countBits(9), 2);
+    assert.strictEqual(countBits(10), 2);
+    })
+  })
